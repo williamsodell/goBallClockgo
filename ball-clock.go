@@ -8,69 +8,11 @@ import (
 	"github.com/williamsodell/goBallClockgo/helpers"
 )
 
-const HOUR_BALL_CAP = 11
-const FIVE_MIN_BALL_CAP = 11
-const ONE_MIN_BALL_CAP = 4
-
 type Mode2 struct {
 	Mins []int
 	FiveMins []int
 	Hours []int
 	Main []int
-}
-
-func checkMainQueue(queue *BallQueue, balls int) bool {
-	if queue.Len() != balls {
-		return false
-	}
-
-	q := *queue
-
-	if q[0] != 1 || q[balls - 1] != balls {
-		return false
-	}
-
-	for i := 1; i <= balls; i++ {
-		if q[i - 1] != i {
-		 return false
-		}
-	}
-
-	return true
-}
-
-func cycleQueue(queue, mainQueue *BallQueue) {
-	for queue.Len() > 0 {
-		mainQueue.Push(queue.Pop())
-	}
-}
-
-func process(mainQueue, minQueue, fiveMinQueue, hourQueue *BallQueue) int {
-	ball := mainQueue.Shift()
-
-	if minQueue.Len() < ONE_MIN_BALL_CAP {
-		minQueue.Push(ball)
-		return 0
-	}
-
-	cycleQueue(minQueue, mainQueue)
-
-	if fiveMinQueue.Len() < FIVE_MIN_BALL_CAP {
-		fiveMinQueue.Push(ball)
-		return 0
-	}
-
-	cycleQueue(fiveMinQueue, mainQueue)
-
-	if hourQueue.Len() < HOUR_BALL_CAP {
-		hourQueue.Push(ball)
-		return 0
-	}
-
-	cycleQueue(hourQueue, mainQueue)
-
-	mainQueue.Push(ball)
-	return 1
 }
 
 func mode1(balls int) {
@@ -80,19 +22,19 @@ func mode1(balls int) {
 	twelveHours := 0
 	finished := false
 
-	mainQueue := &BallQueue{}
-	minQueue := &BallQueue{}
-	fiveMinQueue := &BallQueue{}
-	hourQueue := &BallQueue{}
+	mainQueue := &helpers.BallQueue{}
+	minQueue := &helpers.BallQueue{}
+	fiveMinQueue := &helpers.BallQueue{}
+	hourQueue := &helpers.BallQueue{}
 
 	for i := 1; i <= balls; i++ {
 		mainQueue.Push(i)
 	}
 
 	for !finished {
-		twelveHours += process(mainQueue, minQueue, fiveMinQueue, hourQueue)
+		twelveHours += helpers.Process(mainQueue, minQueue, fiveMinQueue, hourQueue)
 
-		finished = checkMainQueue(mainQueue, balls)
+		finished = helpers.IsFinished(mainQueue, balls)
 	}
 
 	fmt.Println(twelveHours / 2)//Float.. and round
@@ -101,17 +43,17 @@ func mode1(balls int) {
 func mode2(balls, mins int) {
 	fmt.Println("Mode 2")
 
-	mainQueue := &BallQueue{}
-	minQueue := &BallQueue{}
-	fiveMinQueue := &BallQueue{}
-	hourQueue := &BallQueue{}
+	mainQueue := &helpers.BallQueue{}
+	minQueue := &helpers.BallQueue{}
+	fiveMinQueue := &helpers.BallQueue{}
+	hourQueue := &helpers.BallQueue{}
 
 	for i := 1; i <= balls; i++ {
 		mainQueue.Push(i)
 	}
 
 	for i := 0; i < mins; i++ {
-		process(mainQueue, minQueue, fiveMinQueue, hourQueue)
+		helpers.Process(mainQueue, minQueue, fiveMinQueue, hourQueue)
 	}
 
 	result := &Mode2{
