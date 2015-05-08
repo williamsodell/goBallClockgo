@@ -11,10 +11,10 @@ func Mode1(balls int) {
 	twelveHours := 0
 	finished := false
 
-	mainQueue := &helpers.BallQueue{}
-	minQueue := &helpers.BallQueue{}
-	fiveMinQueue := &helpers.BallQueue{}
-	hourQueue := &helpers.BallQueue{}
+	mainQueue := &BallQueue{}
+	minQueue := &BallQueue{}
+	fiveMinQueue := &BallQueue{}
+	hourQueue := &BallQueue{}
 
 	for i := 1; i <= balls; i++ {
 		mainQueue.Push(i)

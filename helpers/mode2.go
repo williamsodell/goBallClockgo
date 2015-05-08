@@ -15,10 +15,10 @@ type Mode2Result struct {
 func Mode2(balls, mins int) {
 	fmt.Println("Mode 2")
 
-	mainQueue := &helpers.BallQueue{}
-	minQueue := &helpers.BallQueue{}
-	fiveMinQueue := &helpers.BallQueue{}
-	hourQueue := &helpers.BallQueue{}
+	mainQueue := &BallQueue{}
+	minQueue := &BallQueue{}
+	fiveMinQueue := &BallQueue{}
+	hourQueue := &BallQueue{}
 
 	for i := 1; i <= balls; i++ {
 		mainQueue.Push(i)
