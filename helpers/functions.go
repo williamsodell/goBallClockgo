@@ -4,7 +4,7 @@ const HOUR_BALL_CAP = 11
 const FIVE_MIN_BALL_CAP = 11
 const ONE_MIN_BALL_CAP = 4
 
-func IsFinished(queue *helpers.BallQueue, balls int) bool {
+func IsFinished(queue *BallQueue, balls int) bool {
 	if queue.Len() != balls {
 		return false
 	}
@@ -24,13 +24,13 @@ func IsFinished(queue *helpers.BallQueue, balls int) bool {
 	return true
 }
 
-func CycleQueue(queue, mainQueue *helpers.BallQueue) {
+func CycleQueue(queue, mainQueue *BallQueue) {
 	for queue.Len() > 0 {
 		mainQueue.Push(queue.Pop())
 	}
 }
 
-func Process(mainQueue, minQueue, fiveMinQueue, hourQueue *helpers.BallQueue) int {
+func Process(mainQueue, minQueue, fiveMinQueue, hourQueue *BallQueue) int {
 	ball := mainQueue.Shift()
 
 	if minQueue.Len() < ONE_MIN_BALL_CAP {
