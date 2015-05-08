@@ -11,3 +11,7 @@ go get github.com/williamsodell/goBallClockgo/helpers
 
 # to update run
 go get -u github.com/williamsodell/goBallClockgo/helpers
+
+# to benchmark
+go test -bench=.
+go test -bench=. -benchtime=10s
