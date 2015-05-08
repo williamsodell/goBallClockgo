@@ -38,21 +38,21 @@ func Process(mainQueue, minQueue, fiveMinQueue, hourQueue *BallQueue) int {
 		return 0
 	}
 
-	cycleQueue(minQueue, mainQueue)
+  CycleQueue(minQueue, mainQueue)
 
 	if fiveMinQueue.Len() < FIVE_MIN_BALL_CAP {
 		fiveMinQueue.Push(ball)
 		return 0
 	}
 
-	cycleQueue(fiveMinQueue, mainQueue)
+  CycleQueue(fiveMinQueue, mainQueue)
 
 	if hourQueue.Len() < HOUR_BALL_CAP {
 		hourQueue.Push(ball)
 		return 0
 	}
 
-	cycleQueue(hourQueue, mainQueue)
+  CycleQueue(hourQueue, mainQueue)
 
 	mainQueue.Push(ball)
 	return 1
